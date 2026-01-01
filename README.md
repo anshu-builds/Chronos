@@ -1,49 +1,70 @@
+
 # ⏳ Chronos: The Trinity Architecture
 
 > **A full-stack Version Control System built from first principles.**
-> *No Frameworks. No Libraries. Just raw Python.*
+> *Now available as a standalone executable (No Python Required).*
 
 ---
 
 ## 📖 Overview
-Chronos is not just a version control system; it is a distributed system architecture exploring the fundamentals of how software tools work under the hood. 
+Chronos is a distributed system architecture exploring the fundamentals of software tools. It implements the "Trinity" of modern computing:
 
-It implements the "Trinity" of modern computing:
-1.  **Storage Engine (Chronos):** A content-addressable storage system using SHA-1 hashing (inspired by Git).
+1.  **Storage Engine (Chronos):** A content-addressable storage system using SHA-1 hashing.
 2.  **Network Layer (Setu):** A custom multi-threaded HTTP Web Server built on raw TCP sockets.
-3.  **Client Interface (Sarathi):** A remote Command Line Interface (CLI) that controls the system via API.
-
-## 🏗️ Architecture
-
-### 1. Chronos (The Core)
-The heart of the system. It manages the `.chronos` database.
-* **Mechanism:** Snapshot-based versioning.
-* **Hashing:** SHA-1 algorithm to ensure data integrity.
-* **Storage:** Content-Addressable Storage (CAS) pattern.
-
-### 2. Setu (The Bridge) 🌉
-A custom-built Web Server and API.
-* **Protocol:** HTTP/1.1 implemented manually on top of TCP `socket`.
-* **Role:** Exposes the internal state of Chronos to the web.
-* **Endpoints:**
-    * `GET /`: System Status & Health.
-    * `GET /log`: Real-time inventory of committed objects.
-
-### 3. Sarathi (The Driver) 🏎️
-The client-side terminal application.
-* **Role:** Acts as the remote controller for the system.
-* **Communication:** Connects to Setu via RESTful API calls.
-* **Features:** Remote status checking and log retrieval.
+3.  **Client Interface (Sarathi):** A remote Command Line Interface (CLI).
 
 ---
 
-## 🚀 How to Run
+## 🚀 How to Download & Run (Easiest Way)
 
-### Prerequisites
-* Python 3.x
-* No external pip packages required for the core engine.
+**You do NOT need Python installed.**
+
+1.  Go to the [**Releases Page**](../../releases) of this repository.
+2.  Download **`Chronos.exe`**.
+3.  Open your terminal in the folder where you downloaded it.
+4.  Run it directly:
+
+```powershell
+# Initialize a repository
+.\Chronos.exe init
+
+# Save a snapshot
+.\Chronos.exe commit "My first backup"
+
+```
+
+---
+
+## 🛠️ For Developers (Source Code)
+
+If you want to modify the engine yourself, you need Python 3.x.
 
 ### Installation
+
 ```bash
-git clone [https://github.com/your-username/Chronos.git](https://github.com/your-username/Chronos.git)
+git clone [https://github.com/anshu-builds/Chronos.git](https://github.com/anshu-builds/Chronos.git)
 cd Chronos
+
+```
+
+### Build your own EXE
+
+If you modify the code, you can rebuild the executable:
+
+```bash
+pip install pyinstaller
+pyinstaller --onefile --name "Chronos" chronos.py
+
+```
+
+---
+
+## 🏗️ Architecture Highlights
+
+* **Sockets:** Manual implementation of `socket.AF_INET` and `socket.SOCK_STREAM`.
+* **Database:** Custom binary object storage (Blobs and Trees).
+* **Compiling:** Built into a static binary using PyInstaller.
+
+---
+
+*Built by Anshu Jaiswal as part of his AI Engineering Roadmap.*
