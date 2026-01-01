@@ -58,19 +58,15 @@ def main():
         print(f"🌳 Root Tree: {sha}")
 
     elif command == "commit":
-        tree_sha = sys.argv[2]
-        message = sys.argv[3]
+        if len(sys.argv) < 3:
+            print("Usage: chronos commit <message>")
+            return
+        
+        message = sys.argv[2]
+        tree_sha = base.write_tree()
         sha = base.commit(tree_sha, message)
         print(f"🚀 Commit: {sha}")
-    
-    elif command == "commit":
-        tree_sha = sys.argv[2]
-        message = sys.argv[3]
-        parent = sys.argv[4] if len(sys.argv) > 4 else None
         
-        sha = base.commit(tree_sha, message, parent)
-        print(f"🚀 Commit: {sha}")
-
     elif command == "log":
         sha = sys.argv[2]
         print("📜 History Log:")
